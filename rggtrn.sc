@@ -1,4 +1,4 @@
-
+// mensaje misterioso
 
 RGGTRN {
 
@@ -207,6 +207,20 @@ SynthDef(\rev, {
 	Out.ar(0, sin*env);
 
 }).add;
+
+
+//________________________________________________________________________________________________________
+
+
+~keys = {Pan2.ar(
+	SinOsc.ar(
+	40, 0, 
+	Decay.kr(Demand.kr(Impulse.kr(~tempo*[1,2]),0,Dseq([
+	Dseq([2,2,0,0,2,0,0,0,2,0,0,0,2,0,0,0],7),
+	Dseq([2,2,0,0,2,0,0,0,2,0,0,0,2,0,0,0],1)],inf)) * 
+	Impulse.kr(~tempo * [
+	Demand.kr(Impulse.kr(~tempo), 0, Dseq([3, 2, 2, 2, 3, 2, 2, 2], inf)),2]), 0.15)).fold2(0.2)).sum * 1};
+
 
 	}
 }
