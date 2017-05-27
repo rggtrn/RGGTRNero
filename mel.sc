@@ -29,10 +29,9 @@ Pdef(\mel, Pbind(
 
 	}
 
-*fade {
+*detener {
 
-		Pdef (\mel).fadeTime = 4;
-
+		Pdef (\mel).stop;
 	}
 
 }
