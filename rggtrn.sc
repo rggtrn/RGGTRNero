@@ -11,6 +11,7 @@ classvar <s;
 	    version = "Mayo 4 2016";
 		("PERREO TURBO CARGADO : version 1.0").postln;
 
+~dembow=Buffer.read(s, "~/Dropbox/samples/dembow.wav".standardizePath);
 ~romantic=Buffer.read(s, "~/Dropbox/samples/romantic.wav".standardizePath);
 ~rggtrn2=Buffer.read(s, "~/Dropbox/samples/rggtrn2.wav".standardizePath);
 ~digital=Buffer.read(s, "~/Dropbox/samples/digital.wav".standardizePath);
@@ -210,6 +211,13 @@ SynthDef(\rev, {
 
 
 //________________________________________________________________________________________________________
+
+
+SynthDef(\dembow, {|tempo = 140, rate = -1, pos = 0, imp = #[0.25, 0.25, 0.25, 0.25]|
+	var synth;
+	synth = LPF.ar(Pan2.ar(PlayBuf.ar(2, e, BufRateScale.kr(e) * Demand.kr(Impulse.kr((tempo/60)*0.5), 0, Dseq([0.75]*rate, inf)), Impulse.kr((tempo/60)*Demand.kr(Impulse.kr((tempo/60)), 0, Dseq(imp, inf))), BufFrames.kr(e)* pos, 1)).flat*0.4, 10500);
+	Out.ar(0, synth)
+}).add;
 
 
 ~keys = {Pan2.ar(
