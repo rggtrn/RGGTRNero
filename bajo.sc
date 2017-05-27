@@ -30,4 +30,17 @@ Pdef(\bajo, Pbind(
 Pdef (\bajo).fadeTime = Pdefn (\bajoFade, 0);
 
 	}
+
+*detener {
+
+
+Pdef(\bajo, Pbind(
+			\instrument,  Pdefn (\bajoInst, \bajo),
+			\amp, Pdefn (\bajoAmp, 0.75),
+			\atk, Pdefn (\BajoAtk, 0.025),
+			\rel, Pdefn (\bajoRel, Pseq (#[1, 0.5, 0.5], inf)),
+			\midinote, Pdefn (\bajoNotas , Pseq((#[62, 65, 69]-12),inf)),
+			\dur, Pdefn (\bajoDur, Pseq(#[1, 0.5, 0.5], inf)),
+		)).stop(quant:4);
+	}
 }
