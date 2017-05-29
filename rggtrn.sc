@@ -230,21 +230,11 @@ SynthDef(\csf, {|tempo = 120, octava = -1, pos = 0, imp = #[0.25, 0.25, 0.25, 0.
         synth = LPF.ar(
                         Pan2.ar(
                                 PlayBuf.ar(2, ~csf, BufRateScale.kr(~csf) *
-                                        Demand.kr(Impulse.kr((tempo/60) * 0.5), 0, Dseq([0.75] * ((tempo/140) * octava, inf)),
+                                        Demand.kr(Impulse.kr((tempo/60) * 0.5), 0, Dseq([0.75] * ((tempo/140) * octava), inf)),
                                         Impulse.kr((tempo/60) * Demand.kr(Impulse.kr((tempo/60)), 0, Dseq(imp, inf))),
                                         BufFrames.kr(~csf)* pos, 1)).flat * 0.4, freq);
         Out.ar(0, synth * amp)
 }).add;
-
-
-~keys = {Pan2.ar(
-	SinOsc.ar(
-	40, 0, 
-	Decay.kr(Demand.kr(Impulse.kr(~tempo*[1,2]),0,Dseq([
-	Dseq([2,2,0,0,2,0,0,0,2,0,0,0,2,0,0,0],7),
-	Dseq([2,2,0,0,2,0,0,0,2,0,0,0,2,0,0,0],1)],inf)) * 
-	Impulse.kr(~tempo * [
-	Demand.kr(Impulse.kr(~tempo), 0, Dseq([3, 2, 2, 2, 3, 2, 2, 2], inf)),2]), 0.15)).fold2(0.2)).sum * 1};
 
 
 	}
