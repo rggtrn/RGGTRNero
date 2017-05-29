@@ -213,9 +213,9 @@ SynthDef(\rev, {
 //________________________________________________________________________________________________________
 
 
-SynthDef(\dembow, {|tempo = 140, rate = -1, pos = 0, imp = #[0.25, 0.25, 0.25, 0.25]|
+SynthDef(\dembow, {|tempo = 120, rate = -1, pos = 0, imp = #[0.25, 0.25, 0.25, 0.25]|
 	var synth;
-	synth = LPF.ar(Pan2.ar(PlayBuf.ar(2, ~dembow, BufRateScale.kr(~dembow) * Demand.kr(Impulse.kr((tempo/60)*0.5), 0, Dseq([0.75]*rate, inf)), Impulse.kr((tempo/60)*Demand.kr(Impulse.kr((tempo/60)), 0, Dseq(imp, inf))), BufFrames.kr(~dembow)* pos, 1)).flat*0.4, 10500);
+	synth = LPF.ar(Pan2.ar(PlayBuf.ar(2, ~dembow, BufRateScale.kr(~dembow) * Demand.kr(Impulse.kr((tempo/60)*0.5), 0, Dseq([0.75] * (120/140), inf)), Impulse.kr((tempo/60)*Demand.kr(Impulse.kr((tempo/60)), 0, Dseq(imp, inf))), BufFrames.kr(~dembow)* pos, 1)).flat*0.4, 10500);
 	Out.ar(0, synth)
 }).add;
 
