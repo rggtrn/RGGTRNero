@@ -12,8 +12,8 @@ classvar <s; classvar <csf; classvar <dembow; classvar <romantic; classvar <rggt
 		super.initClass;
 	    version = "Mayo 4 2016";
 		("PERREO TURBO CARGADO : version 1.0").postln;
-c=Buffer.read(s, "~/Dropbox/samples/patioCSF.wav".standardizePath);
-d=Buffer.read(s, "~/Dropbox/samples/dembow.wav".standardizePath);
+~csf=Buffer.read(s, "~/Dropbox/samples/patioCSF.wav".standardizePath);
+~dembow=Buffer.read(s, "~/Dropbox/samples/dembow.wav".standardizePath);
 romantic=Buffer.read(s, "~/Dropbox/samples/romantic.wav".standardizePath);
 rggtrn2=Buffer.read(s, "~/Dropbox/samples/rggtrn2.wav".standardizePath);
 digital=Buffer.read(s, "~/Dropbox/samples/digital.wav".standardizePath);
@@ -219,10 +219,10 @@ SynthDef(\dembow, {|tempo = 120, octava = -1, pos = 0, imp = #[0.25, 0.25, 0.25,
 	var synth;
 	synth = LPF.ar(
 			Pan2.ar(
-				PlayBuf.ar(2, d, BufRateScale.kr(d) *
+				PlayBuf.ar(2, ~dembow, BufRateScale.kr(~dembow) *
 					Demand.kr(Impulse.kr((tempo/60)*0.5), 0, Dseq([0.75] * ((tempo/140) * octava), inf)),
 					Impulse.kr((tempo/60)*Demand.kr(Impulse.kr((tempo/60)), 0, Dseq(imp, inf))),
-					BufFrames.kr(d)* pos, 1)).flat*0.4, freq);
+					BufFrames.kr(~dembow)* pos, 1)).flat*0.4, freq);
 	Out.ar(0, synth * amp)
 }).add;
 
@@ -230,10 +230,10 @@ SynthDef(\csf, {|tempo = 120, octava = -1, pos = 0, imp = #[0.25, 0.25, 0.25, 0.
         var synth;
         synth = LPF.ar(
                         Pan2.ar(
-                                PlayBuf.ar(2, c, BufRateScale.kr(c) *
+                                PlayBuf.ar(2, ~csf, BufRateScale.kr(~csf) *
                                         Demand.kr(Impulse.kr((tempo/60) * 0.5), 0, Dseq([0.75] * ((tempo/140) * octava), inf)),
                                         Impulse.kr((tempo/60) * Demand.kr(Impulse.kr((tempo/60)), 0, Dseq(imp, inf))),
-                                        BufFrames.kr(c)* pos, 1)).flat * 0.4, freq);
+                                        BufFrames.kr(~csf)* pos, 1)).flat * 0.4, freq);
         Out.ar(0, synth * amp)
 }).add;
 
