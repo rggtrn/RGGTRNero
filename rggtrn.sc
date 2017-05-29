@@ -3,31 +3,34 @@
 RGGTRN {
 
 classvar <version;
-classvar <s;
+classvar <s; classvar <dembow; classvar <romantic; classvar <rggtrn2; classvar <digital; classvar <sonidero; classvar <internacional; classvar <rggtrn; classvar <si; classvar <bombo; classvar <bajo; classvar <timbal; classvar <tom1; classvar <principio; classvar <bote; classvar <sabro; classvar <fuerte; classvar <intro;
+
 	*turboCargar {
+
 
 
 		super.initClass;
 	    version = "Mayo 4 2016";
 		("PERREO TURBO CARGADO : version 1.0").postln;
 
-~dembow=Buffer.read(s, "~/Dropbox/samples/dembow.wav".standardizePath);
-~romantic=Buffer.read(s, "~/Dropbox/samples/romantic.wav".standardizePath);
-~rggtrn2=Buffer.read(s, "~/Dropbox/samples/rggtrn2.wav".standardizePath);
-~digital=Buffer.read(s, "~/Dropbox/samples/digital.wav".standardizePath);
-~sonidero=Buffer.read(s, "~/Dropbox/samples/sonidero.wav".standardizePath);
-~internacional=Buffer.read(s, "~/Dropbox/samples/internacional.wav".standardizePath);
-~rggtrn=Buffer.read(s, "~/Dropbox/samples/rggtrn.wav".standardizePath);
-~si=Buffer.read(s, "~/Dropbox/samples/si.wav".standardizePath);
-~bombo=Buffer.read(s, "~/Dropbox/samples/bombo.wav".standardizePath);
-~bajo=Buffer.read(s, "~/Dropbox/samples/bajo.wav".standardizePath);
-~timbal=Buffer.read(s, "~/Dropbox/samples/timbal.wav".standardizePath);
-~tom1=Buffer.read(s, "~/Dropbox/samples/tom1.wav".standardizePath);
-~principio=Buffer.read(s, "~/Dropbox/samples/principio_2.wav".standardizePath);
-~bote=Buffer.read(s, "~/Dropbox/samples/bote.wav".standardizePath);
-~sabro=Buffer.read(s, "~/Dropbox/samples/sabro.wav".standardizePath);
-~fuerte=Buffer.read(s, "~/Dropbox/samples/fuerte.wav".standardizePath);
-~intro=Buffer.read(s, "~/Dropbox/samples/intro_soni.wav".standardizePath);
+
+dembow=Buffer.read(s, "~/Dropbox/samples/dembow.wav".standardizePath);
+romantic=Buffer.read(s, "~/Dropbox/samples/romantic.wav".standardizePath);
+rggtrn2=Buffer.read(s, "~/Dropbox/samples/rggtrn2.wav".standardizePath);
+digital=Buffer.read(s, "~/Dropbox/samples/digital.wav".standardizePath);
+sonidero=Buffer.read(s, "~/Dropbox/samples/sonidero.wav".standardizePath);
+internacional=Buffer.read(s, "~/Dropbox/samples/internacional.wav".standardizePath);
+rggtrn=Buffer.read(s, "~/Dropbox/samples/rggtrn.wav".standardizePath);
+si=Buffer.read(s, "~/Dropbox/samples/si.wav".standardizePath);
+bombo=Buffer.read(s, "~/Dropbox/samples/bombo.wav".standardizePath);
+bajo=Buffer.read(s, "~/Dropbox/samples/bajo.wav".standardizePath);
+timbal=Buffer.read(s, "~/Dropbox/samples/timbal.wav".standardizePath);
+tom1=Buffer.read(s, "~/Dropbox/samples/tom1.wav".standardizePath);
+principio=Buffer.read(s, "~/Dropbox/samples/principio_2.wav".standardizePath);
+bote=Buffer.read(s, "~/Dropbox/samples/bote.wav".standardizePath);
+sabro=Buffer.read(s, "~/Dropbox/samples/sabro.wav".standardizePath);
+fuerte=Buffer.read(s, "~/Dropbox/samples/fuerte.wav".standardizePath);
+intro=Buffer.read(s, "~/Dropbox/samples/intro_soni.wav".standardizePath);
 
 SynthDef (\samples, {
 	arg buf, freq=1, amp=0.5, pan=0, atk=0.01, rel=1;
@@ -215,17 +218,17 @@ SynthDef(\rev, {
 
 SynthDef(\dembow, {|tempo = 140, rate = -1, pos = 0, imp = #[0.25, 0.25, 0.25, 0.25]|
 	var synth;
-	synth = LPF.ar(Pan2.ar(PlayBuf.ar(2, ~dembow, BufRateScale.kr(~dembow) * Demand.kr(Impulse.kr((tempo/60)*0.5), 0, Dseq([0.75]*rate, inf)), Impulse.kr((tempo/60)*Demand.kr(Impulse.kr((tempo/60)), 0, Dseq(imp, inf))), BufFrames.kr(~dembow)* pos, 1)).flat*0.4, 10500);
+	synth = LPF.ar(Pan2.ar(PlayBuf.ar(2, dembow, BufRateScale.kr(dembow) * Demand.kr(Impulse.kr((tempo/60)*0.5), 0, Dseq([0.75]*rate, inf)), Impulse.kr((tempo/60)*Demand.kr(Impulse.kr((tempo/60)), 0, Dseq(imp, inf))), BufFrames.kr(dembow)* pos, 1)).flat*0.4, 10500);
 	Out.ar(0, synth)
 }).add;
 
 
 ~keys = {Pan2.ar(
 	SinOsc.ar(
-	40, 0, 
+	40, 0,
 	Decay.kr(Demand.kr(Impulse.kr(~tempo*[1,2]),0,Dseq([
 	Dseq([2,2,0,0,2,0,0,0,2,0,0,0,2,0,0,0],7),
-	Dseq([2,2,0,0,2,0,0,0,2,0,0,0,2,0,0,0],1)],inf)) * 
+	Dseq([2,2,0,0,2,0,0,0,2,0,0,0,2,0,0,0],1)],inf)) *
 	Impulse.kr(~tempo * [
 	Demand.kr(Impulse.kr(~tempo), 0, Dseq([3, 2, 2, 2, 3, 2, 2, 2], inf)),2]), 0.15)).fold2(0.2)).sum * 1};
 
