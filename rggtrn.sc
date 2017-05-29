@@ -214,7 +214,7 @@ SynthDef(\rev, {
 //________________________________________________________________________________________________________
 
 
-SynthDef(\dembow, {|tempo = 120, octava = -1, pos = 0, imp = #[0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25], freq = 1, amp = 1|
+SynthDef(\dembow, {|tempo = 120, octava = -1, pos = 0, imp = #[0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25], freq = 5000, amp = 1|
 	var synth;
 	synth = LPF.ar(
 			Pan2.ar(
@@ -225,7 +225,7 @@ SynthDef(\dembow, {|tempo = 120, octava = -1, pos = 0, imp = #[0.25, 0.25, 0.25,
 	Out.ar(0, synth * amp)
 }).add;
 
-SynthDef(\csf, {|tempo = 120, octava = -1, pos = 0, imp = #[0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25], freq = 1, amp = 1|
+SynthDef(\csf, {|tempo = 120, octava = -1, pos = 0, imp = #[0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25], freq = 5000, amp = 1|
         var synth;
         synth = LPF.ar(
                         Pan2.ar(
