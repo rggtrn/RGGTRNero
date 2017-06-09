@@ -12,6 +12,7 @@ classvar <s; classvar <csf; classvar <dembow; classvar <romantic; classvar <rggt
 		super.initClass;
 	    version = "Mayo 4 2017";
 		("RGGTRN TURBO CARGADO : version 1.0").postln;
+~luislacolegiala=Buffer.read(s, "~/Dropbox/samples/patioCSF.wav".standardizePath);
 ~csf=Buffer.read(s, "~/Dropbox/samples/patioCSF.wav".standardizePath);
 ~dembow=Buffer.read(s, "~/Dropbox/samples/dembow.wav".standardizePath);
 romantic=Buffer.read(s, "~/Dropbox/samples/romantic.wav".standardizePath);
@@ -227,6 +228,17 @@ SynthDef(\dembow, {|tempo = 120, octava = -1, pos = 0, imp = #[0.25, 0.25, 0.25,
 					Demand.kr(Impulse.kr((tempo/60)*0.5), 0, Dseq([0.75] * ((tempo/140) * octava), inf)),
 					Impulse.kr((tempo/60)*Demand.kr(Impulse.kr((tempo/60)), 0, Dseq(imp, inf))),
 					BufFrames.kr(~dembow)* pos, 1)).flat*0.4, freq);
+	Out.ar(0, synth * amp)
+}).add;
+
+SynthDef(\colegiala, {|tempo = 110, octava = -1, pos = 0, imp = #[0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25], freq = 5000, amp = 1|
+	var synth;
+	synth = LPF.ar(
+			Pan2.ar(
+				PlayBuf.ar(2, ~luislacolegiala, BufRateScale.kr(~luislacolegiala) *
+					Demand.kr(Impulse.kr((tempo/60)*0.5), 0, Dseq([0.75] * (octava), inf)),
+					Impulse.kr((tempo/60)*Demand.kr(Impulse.kr((tempo/60)), 0, Dseq(imp, inf))),
+					BufFrames.kr(~luislacolegiala)* pos, 1)).flat*0.4, freq);
 	Out.ar(0, synth * amp)
 }).add;
 
