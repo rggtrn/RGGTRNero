@@ -10,7 +10,7 @@ classvar <version;
 		("Pad : version 1.0").postln;
 	}
 
-	*toca {arg sinte = \pad, atk = 0.05, rel = 0.25, db = -10, pan = 0, nota = 62, dur = 1;
+	*toca {arg sinte = \pad, atk = 0.05, rel = 0.25, db = -5, pan = 0, nota = 62, dur = 1;
 
 	Pbindef(\pad,
 			\instrument, sinte,
