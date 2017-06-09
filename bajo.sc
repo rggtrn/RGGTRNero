@@ -21,7 +21,7 @@ classvar <v;
 
 Pdef(\bajo, Pbind(
 			\instrument,  Pdefn (\bajoInst, \bajo),
-			\amp, Pdefn (\bajoAmp, 0.75),
+			\db, Pdefn (\bajoDb, -15),
 			\atk, Pdefn (\BajoAtk, 0.025),
 			\rel, Pdefn (\bajoRel, Pseq (#[1, 0.5, 0.5], inf)),
 			\midinote, Pdefn (\bajoNotas , Pseq((#[62, 65, 69]-12),inf)),

@@ -18,7 +18,7 @@ classvar <version;
 			\num, Pdefn (\padNum, 2),
 			\atk, Pdefn (\padAtk, 0.05),
 			\rel, Pdefn (\padRel, 0.25),
-			\amp, Pdefn (\padAmp, 0.95),
+			\amp, Pdefn (\padAmp, 0.50),
 			\pan, Pdefn (\padPan, Pseq([0], inf)),
 			\midinote, Pdefn(\padNotas, 62),
 			\dur, Pdefn (\padDur, 1/4),
