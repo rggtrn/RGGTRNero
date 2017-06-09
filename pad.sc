@@ -6,38 +6,30 @@ classvar <version;
 
 	*initClass {
 	 super.initClass;
-	    version = "Mayo 4 2016";
+	    version = "Mayo 4 2017";
 		("Pad : version 1.0").postln;
 	}
 
-	*cumbia {
+	*toca {arg sinte = \pad, atk = 0.05, rel = 0.25, db = -20, pan = 0, nota = 62, dur = 1;
 
-	Pdef(\pad, Pbind(
-			\instrument, Pdefn (\padInst, \pad),
-			\fase, Pdefn (\padFase, 0.7),
-			\num, Pdefn (\padNum, 2),
-			\atk, Pdefn (\padAtk, 0.05),
-			\rel, Pdefn (\padRel, 0.25),
-			\amp, Pdefn (\padAmp, 0.50),
-			\pan, Pdefn (\padPan, Pseq([0], inf)),
-			\midinote, Pdefn(\padNotas, 62),
-			\dur, Pdefn (\padDur, 1/4),
-	)).play(quant:4);
-	Pdef (\pad).fadeTime = Pdefn (\padFade, 0);
+	Pbindef(\pad, Pbind(
+			\instrument, sinte,
+			\fase, 0.7,
+			\num, 2,
+			\atk, atk,
+			\rel, rel,
+			\db, db,
+			\pan, pan,
+			\midinote, nota,
+			\dur, dur,
+		)).play(quant:4);
+				^super.newCopyArgs(db, atk, rel, nota, dur, pan);
+
+
 	}
 
 	*detener {
 
-	Pdef(\pad, Pbind(
-			\instrument, Pdefn (\padInst, \pad),
-			\fase, Pdefn (\padFase, 0.7),
-			\num, Pdefn (\padNum, 2),
-			\atk, Pdefn (\padAtk, 0.05),
-			\rel, Pdefn (\padRel, 0.25),
-			\amp, Pdefn (\padAmp, 0.95),
-			\pan, Pdefn (\padPan, Pseq([0], inf)),
-			\midinote, Pdefn(\padNotas, 62),
-			\dur, Pdefn (\padDur, 1/4),
-	)).stop(quant:4);
+	Pbindef(\pad).stop(quant:4);
 	}
 }

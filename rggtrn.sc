@@ -10,8 +10,8 @@ classvar <s; classvar <csf; classvar <dembow; classvar <romantic; classvar <rggt
 
 
 		super.initClass;
-	    version = "Mayo 4 2016";
-		("PERREO TURBO CARGADO : version 1.0").postln;
+	    version = "Mayo 4 2017";
+		("RGGTRN TURBO CARGADO : version 1.0").postln;
 ~csf=Buffer.read(s, "~/Dropbox/samples/patioCSF.wav".standardizePath);
 ~dembow=Buffer.read(s, "~/Dropbox/samples/dembow.wav".standardizePath);
 romantic=Buffer.read(s, "~/Dropbox/samples/romantic.wav".standardizePath);
@@ -38,7 +38,7 @@ SynthDef (\samples, {
 	env= EnvGen.ar(Env.perc(atk, rel, amp.clip(0,0.5)), doneAction:2);
 	sig=sig*env;
 	paneo=Pan2.ar(sig,pan);
-			Out.ar([0,16],Limiter.ar (Compander.ar (paneo, mul: 1),1));
+			Out.ar(0,Limiter.ar (Compander.ar (paneo, mul: 1),1));
 }).add;
 
 SynthDef (\timbal, {
@@ -48,7 +48,7 @@ SynthDef (\timbal, {
 	env= EnvGen.ar(Env.perc(atk, rel), doneAction:2);
 	sig=sig*env;
 	paneo=Pan2.ar(sig,pan);
-			Out.ar([0,14],Limiter.ar (Compander.ar (paneo, mul: amp.clip(0,0.75)),1));
+			Out.ar(0,Limiter.ar (Compander.ar (paneo, mul: amp.clip(0,0.75)),1));
 }).add;
 
 
@@ -59,7 +59,7 @@ SynthDef (\timbal, {
 	env = EnvGen.ar(Env.adsr(0.001, 0.005, -1.dbamp, 0.3), doneAction:2, gate:gate);
 	audio = Saw.ar(freq:freq, mul:amp.clip(0,0.5));
 	audio = audio * env;
-			Out.ar([0,2], Pan2.ar (audio));
+			Out.ar(0, Pan2.ar (audio));
 }).add;
 
 
@@ -71,7 +71,7 @@ SynthDef (\bajoSample, {
 	env= EnvGen.ar(Env.perc(0.01, atk, amp.clip(0,0.5)), doneAction:2);
 	sig=sig*Line.kr(1, 0, 0.2)*amp;
 	paneo=Pan2.ar(sigMix,pan);
-			Out.ar([0,6],Limiter.ar (Compander.ar (paneo, mul: 2),1)) ;
+			Out.ar(0,Limiter.ar (Compander.ar (paneo, mul: 2),1)) ;
 }).add;
 
 
@@ -80,7 +80,7 @@ SynthDef (\bajo, {|amp = 1, freq = 40, atk = 0.5, rel = 1|
 	var sin, env, out;
 			sin = Pulse.ar(freq/2, mul:amp.clip(0,0.5)) + SinOsc.ar (freq/2, mul:amp.clip(0,0.5));
 	env = EnvGen.ar(Env.perc(atk, rel), doneAction:2);
-			out = Out.ar([0,6],Pan2.ar (sin*env,0));
+			out = Out.ar(0,Pan2.ar (sin*env,0));
 	}
 ).add;
 
@@ -105,35 +105,35 @@ SynthDef(\guira, {|amp 1, atk=0.01, rel=0.2, dura=0.2|
                        [0.36,0.14,0.22,0.19,0.22,0.25,0.16,
 			            0.16,0.14,0.28,0.43,0.34,0.21,0.37]
                        ],
-		LFPulse.ar(20,0,0.5,Rand(0.03,0.045))
+		LFPulse.ar(20,0,0.5,Rand(0.03,0.045),mul: amp/8)
 	                 );
 	sig = HPF.ar(klank+WhiteNoise.ar(amp/2), Rand(2500,2000));
 	sig = (Compander.ar(sig));
 	env = Env([0,1, 1, 0], [atk, dura,rel]).kr(2);
 
-			Out.ar([0,12],Pan2.ar (sig*env,0));
+			Out.ar(0,Pan2.ar (sig*env,0));
 		}).add;
 
 
 
-		SynthDef(\mel, {|freq 200, amp 1, pan 0, atk 0.125, rel 0.25| Out.ar([0,2],(Pan2.ar(Compander.ar(Pulse.ar(freq, 0.5, amp.clip(0,0.5))*Env.perc(atk, rel).kr(2),mul:amp.clip(0,0.5)),0)))}).add;
+		SynthDef(\mel, {|freq 200, amp 1, pan 0, atk 0.125, rel 0.25| Out.ar(0,(Pan2.ar(Compander.ar(Pulse.ar(freq, 0.5, amp.clip(0,0.5))*Env.perc(atk, rel).kr(2),mul:amp.clip(0,0.5)),0)))}).add;
 
-		SynthDef(\mel2, {|freq 200, amp 1, pan 0, atk 0.025, rel 0.125| Out.ar([0,2],(Pan2.ar(Compander.ar(Pulse.ar(freq, Line.ar(0.025,1, 0.125), amp.clip(0,0.5))*Env.perc(atk, rel).kr(2),mul:amp.clip(0,0.75)),0)))}).add;
+		SynthDef(\mel2, {|freq 200, amp 1, pan 0, atk 0.025, rel 0.125| Out.ar(0,(Pan2.ar(Compander.ar(Pulse.ar(freq, Line.ar(0.025,1, 0.125), amp.clip(0,0.5))*Env.perc(atk, rel).kr(2),mul:amp.clip(0,0.75)),0)))}).add;
 
-		SynthDef(\mel3, {|freq 200, amp 1, pan 0, atk 0.125, rel 0.25, ora 0.01,  le 0.125| Out.ar([0,2],(Pan2.ar(Compander.ar(Pulse.ar(freq, Line.ar(ora,le, 0.25), amp.clip(0,0.75))*Env.perc(atk, rel).kr(2),mul:amp.clip(0,0.40)),0)))}).add;
+		SynthDef(\mel3, {|freq 200, amp 1, pan 0, atk 0.125, rel 0.25, ora 0.01,  le 0.125| Out.ar(0,(Pan2.ar(Compander.ar(Pulse.ar(freq, Line.ar(ora,le, 0.25), amp.clip(0,0.75))*Env.perc(atk, rel).kr(2),mul:amp.clip(0,0.40)),0)))}).add;
 
 //use this with low frequencies
-		SynthDef(\pluck,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=3|	Out.ar([0,2],Pan2.ar(Pluck.ar(WhiteNoise.ar(amp.clip(0,0.5))+SinOsc.ar(freq, mul:amp.clip(0,0.5), mul:amp.clip(0,0.25)), Impulse.kr(freqimp), freq.reciprocal, freq.reciprocal, 2,coef: 0.15)*Env.perc(atk,rel).kr(2),0))}).add;
+		SynthDef(\pluck,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=3|	Out.ar(0,Pan2.ar(Pluck.ar(WhiteNoise.ar(amp.clip(0,0.5))+SinOsc.ar(freq, mul:amp.clip(0,0.5), mul:amp.clip(0,0.25)), Impulse.kr(freqimp), freq.reciprocal, freq.reciprocal, 2,coef: 0.15)*Env.perc(atk,rel).kr(2),0))}).add;
 
 
-		SynthDef(\pluckTri,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=4|	Out.ar([0,2],Pan2.ar(Pluck.ar(LFTri.ar(freq, mul:amp.clip(0,0.5), mul: amp.clip(0,0.5)), Impulse.kr(freqimp), freq.reciprocal, freq.reciprocal, 2,coef: 0.15)*Env.perc(atk,rel).kr(2),0))}).add;
+		SynthDef(\pluckTri,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=4|	Out.ar(0,Pan2.ar(Pluck.ar(LFTri.ar(freq, mul:amp.clip(0,0.5), mul: amp.clip(0,0.5)), Impulse.kr(freqimp), freq.reciprocal, freq.reciprocal, 2,coef: 0.15)*Env.perc(atk,rel).kr(2),0))}).add;
 
 		SynthDef(\pad, {|freq 80, amp = 0.5, pan 0, atk 0.25, rel 0.05, fase 0.2, num 4| Out.ar([0,4],(Compander.ar (Pan2.ar(Saw.ar(freq, mul:amp.clip(0,0.5))+LFTri.ar(freq*num, fase, amp/2)*Env.perc(atk, rel).kr(2),pan), mul:amp.clip(0,0.40))))}).add;
 
 
-		SynthDef(\pad2, {|freq 100, amp = 0.5, pan 0, atk 0.25, rel 0.05| Out.ar([0,4], Pan2.ar (Limiter.ar (Compander.ar ((Saw.ar(freq, mul:amp.clip(0,1))*Env.perc(atk, rel, amp.clip(0,0.5)).kr(2)),0,0.5,1,1,0.01,0.1,amp.clip(0,3),0),1)))}).add;
+		SynthDef(\pad2, {|freq 100, amp = 0.5, pan 0, atk 0.25, rel 0.05| Out.ar(0, Pan2.ar (Limiter.ar (Compander.ar ((Saw.ar(freq, mul:amp.clip(0,1))*Env.perc(atk, rel, amp.clip(0,0.5)).kr(2)),0,0.5,1,1,0.01,0.1,amp.clip(0,3),0),1)))}).add;
 
-		SynthDef(\pad3, {|freq=100, amp=1,  pan 0, atk 0.25, rel 0.05,  fase=0.2, num=9| Out.ar([0,4],(Compander.ar (Pan2.ar(SinOsc.ar(freq, mul:amp.clip(0,1) )+LFTri.ar(freq*num, fase, amp/2)*Env.perc(atk, rel, amp).kr(2),pan), mul:amp.clip(0,0.40))))}).add;
+		SynthDef(\pad3, {|freq=100, amp=1,  pan 0, atk 0.25, rel 0.05,  fase=0.2, num=9| Out.ar(0,(Compander.ar (Pan2.ar(SinOsc.ar(freq, mul:amp.clip(0,1) )+LFTri.ar(freq*num, fase, amp/2)*Env.perc(atk, rel, amp).kr(2),pan), mul:amp.clip(0,0.40))))}).add;
 
 		SynthDef(\pad4, {|freq 200, amp 3, pan 0, atk 0.25, rel 0.05| Out.ar([0,4],Pan2.ar(Saw.ar(freq, 0.5, mul:amp.clip(0,0.75))*Env.perc(atk, rel, amp).kr(2),pan))}).add;
 //ruidos

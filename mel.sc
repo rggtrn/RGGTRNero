@@ -12,26 +12,28 @@ classvar <escala;
 		("Bajo : version 1.0").postln;
 	}
 
-	*cumbia {
+	*toca {arg inst = \mel, db = -15, atk = 0.025, rel = Pseq(#[1, 0.5, 0.5], inf), nota = 62, dur = 0.5, legato = 0, arpegiar = 0;
 
 
-Pdef(\mel, Pbind(
-			\instrument,  Pdefn (\melInst, \mel),
-			\amp, Pdefn (\melAmp, 0.75),
-			\atk, Pdefn (\melAtk, 0.025),
-			\rel, Pdefn (\melRel, Pseq(#[1, 0.5, 0.5], inf)),
-			\midinote, Pdefn (\melNotas),
-			\dur, Pdefn (\melDur, 0.5),
-			\legato, Pdefn (\melLeg, 0),
+Pbindef(\mel,
+			\instrument,  inst,
+			\db, db,
+			\atk, atk,
+			\rel, rel,
+			\midinote, nota,
+			\dur, dur,
+			\legato, legato,
 			//\octave, Pdefn (\melOctava, 5),
 			//\scale, Pdefn (\melEsc, Pfunc ({Scale.ionian}, inf));
-		)).play(quant:4);
+			\strum, arpegiar
+		).play(quant:4);
+				^super.newCopyArgs(inst, db, atk, rel, nota, dur, legato, arpegiar);
 
 	}
 
 *detener {
 
-		Pdef (\mel).stop;
+		Pbindef (\mel).stop;
 	}
 
 }
