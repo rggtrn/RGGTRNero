@@ -1,4 +1,4 @@
-Ritmo {
+RitmoE {
 
 	classvar <version;
 	classvar <s;
@@ -14,10 +14,10 @@ Ritmo {
 		("ritmo : version 1.0").postln;
 	}
 //cowbell amp should be 0.35 and guira 0.20
-	*toca {arg bomboDb = -200, bomboFreq =  Pseq ([\r, 0.1, 0.1], inf), bomboDur = Pseq ([1, 0.5, 0.5], inf), bomboPan = 0, guiraDb = -200, guiraFreq = Pseq(#[ 1,r, 1, 1],inf), guiraDur= 0.25, guiraDura= Pseq([1/64,1/32,1/16,1/16]*(80/60) ,inf), guiraPan = 0, timbalesDur = Pxrand([0.25, 0.5, 0.75, 0.25, 0.25],inf), timbalesNum = 0, timbalesPan = -1, campanaDb = -200, campanaDur = 1, campanaPan = 0;
+	*toca {arg bomboDb = -200, bomboFreq =  Pseq ([\r, 0.1, 0.1], inf), bomboDur = Pseq ([1, 0.5, 0.5], inf), bomboPan = 0, guiraDb = -200, guiraFreq = Pseq(#[ 1,r, 1, 1],inf), guiraDur= 0.25, guiraPan = 0, timbalesDur = Pxrand([0.25, 0.5, 0.75, 0.25, 0.25],inf), timbalesNum = 0, timbalesPan = -1, campanaDb = -200, campanaDur = 1, campanaPan = 0;
 
 		Pbindef(\bombo,
-			\instrument, \samples,
+			\instrument, \samplesE,
 			\db, bomboDb,
 			\buf, Pdefn (\bomboBuf, RGGTRN.bombo),
 			\freq, bomboFreq,
@@ -28,8 +28,8 @@ Ritmo {
 		Pbindef(\bombo).quant = 4;
 
 		Pbindef(\guira,
-			\instrument, \guira,
-			\db, guiraDb,
+			\instrument, \guiraE,
+			\db, Pseq([0.7,0,0.5,0.5]*guiraDb, inf),
 			\atk, Pdefn (\guiraAtk, 0.015),
 			\dura, Pdefn (\guiraDura, Pseq([1/64,1/32,1/16,1/16]*(80/60) ,inf)),
 			\rel, Pdefn (\guiraRel, 0.05),
@@ -51,7 +51,7 @@ Ritmo {
 		Pbindef(\redoble).quant = 4;
 
 		Pbindef(\cowBell,
-			\instrument,  \timbal,
+			\instrument,  \timbalE,
 			\db,  campanaDb,
 			\buf, RGGTRN.timbal,
 			\freq, Prand(#[7],inf),

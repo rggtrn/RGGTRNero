@@ -1,6 +1,6 @@
 
 
-Mel {
+Mel2 {
 
 classvar <version;
 classvar <escala;
@@ -15,7 +15,7 @@ classvar <escala;
 	*toca {arg inst = \mel, db = -25, atk = 0.025, rel = Pseq(#[1, 0.5, 0.5], inf), nota = 62, dur = 0.5, legato = 0, pan = 0, arpegiar = 0;
 
 
-Pbindef(\mel,
+Pbindef(\mel2,
 			\instrument,  inst,
 			\db, db,
 			\atk, atk,
@@ -28,13 +28,13 @@ Pbindef(\mel,
 			//\scale, Pdefn (\melEsc, Pfunc ({Scale.ionian}, inf));
 			\strum, arpegiar
 		).play(quant:4);
-Pbindef(\mel).quant = 4;
+Pbindef(\mel2).quant = 4;
 
 	}
 
 *detener {
 
-		Pbindef (\mel).stop;
+		Pbindef (\mel2).stop;
 	}
 
 }

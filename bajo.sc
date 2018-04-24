@@ -14,14 +14,14 @@ classvar <v;
 		("Bajo : version 1.0").postln;
 	}
 
-	*toca {arg db = -15, atk = 0.025, rel = Pseq (#[1, 0.5, 0.5], inf), nota = Pseq((#[62, 65, 69]-12),inf), dur = Pseq(#[1, 0.5, 0.5], inf), pan = 0;
+	*toca {arg inst = \bajo, db = -25, atk = 0.025, rel = Pseq (#[1, 0.5, 0.5], inf), nota = Pseq((#[62, 65, 69]),inf), dur = Pseq(#[1, 0.5, 0.5], inf), pan = 0;
 
 Pbindef(\bajo,
-			\instrument,  Pdefn (\bajoInst, \bajo),
+			\instrument,  inst,
 			\db, db,
 			\atk, atk,
 			\rel, rel,
-			\midinote, nota,
+			\midinote, nota-12,
 			\dur, dur,
 			\pan, pan,
 		).play(quant:4);
