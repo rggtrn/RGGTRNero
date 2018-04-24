@@ -14,7 +14,7 @@ classvar <v;
 		("Bajo : version 1.0").postln;
 	}
 
-	*toca {arg db = -15, atk = 0.025, rel = Pseq (#[1, 0.5, 0.5], inf), nota = Pseq((#[62, 65, 69]-12),inf), dur = Pseq(#[1, 0.5, 0.5], inf);
+	*toca {arg db = -15, atk = 0.025, rel = Pseq (#[1, 0.5, 0.5], inf), nota = Pseq((#[62, 65, 69]-12),inf), dur = Pseq(#[1, 0.5, 0.5], inf), pan = 0;
 
 Pbindef(\bajo,
 			\instrument,  Pdefn (\bajoInst, \bajo),
@@ -23,7 +23,10 @@ Pbindef(\bajo,
 			\rel, rel,
 			\midinote, nota,
 			\dur, dur,
+			\pan, pan,
 		).play(quant:4);
+Pbindef(\bajo).quant = 4;
+
 
 
 		^super.newCopyArgs(db, atk, rel, nota, dur);
