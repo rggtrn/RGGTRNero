@@ -3,7 +3,7 @@
 RGGTRN {
 
 	classvar <version;
-	classvar <s; classvar <csf; classvar <dembow; classvar <romantic; classvar <rggtrn2; classvar <digital; classvar <sonidero; classvar <internacional; classvar <rggtrn; classvar <si; classvar <bombo; classvar <bajo; classvar <timbal; classvar <tom1; classvar <principio; classvar <bote; classvar <sabro; classvar <fuerte; classvar <intro; classvar < busArray;
+	classvar <s; classvar <csf; classvar <dembow; classvar <romantic; classvar <rggtrn2; classvar <digital; classvar <sonidero; classvar <internacional; classvar <rggtrn; classvar <si; classvar <bombo; classvar <bajo; classvar <timbal; classvar <tom1; classvar <principio; classvar <bote; classvar <sabro; classvar <fuerte; classvar <intro; classvar < busArray; classvar < congaS; classvar < congaC; classvar < bongoP; classvar < bongoC;
 
 	*turboCargar {
 		super.initClass;
@@ -28,6 +28,10 @@ RGGTRN {
 		sabro=Buffer.read(s, "~/Dropbox/samples/sabro.wav".standardizePath);
 		fuerte=Buffer.read(s, "~/Dropbox/samples/fuerte.wav".standardizePath);
 		intro=Buffer.read(s, "~/Dropbox/samples/intro_soni.wav".standardizePath);
+		congaC=Buffer.read(s, "~/Dropbox/samples/congaC.wav".standardizePath);
+		congaS=Buffer.read(s, "~/Dropbox/samples/congaS.wav".standardizePath);
+		bongoP=Buffer.read(s, "~/Dropbox/samples/bongo2.aiff".standardizePath);
+		bongoC=Buffer.read(s, "~/Dropbox/samples/bongoC.wav".standardizePath);
 		busArray = [0,4];
 
 
@@ -61,11 +65,11 @@ SynthDef(\cafetera,
 }).add;
 
 		SynthDef (\samples, {
-			arg buf, freq=1, amp=0.5, pan=0, atk=0.01, rel=1;
+			arg buf, freq=1, amp=0.5, pan=0, atk=0.01, rel=1, speed = buf;
 			var sig, paneo, env, sigMix;
-			sig= PlayBuf.ar(2, buf, BufRateScale.ir(buf) + freq, doneAction:2);
+			sig= Mix.ar(PlayBuf.ar(2, buf, BufRateScale.ir(speed) + freq, doneAction:2));
 			env= EnvGen.ar(Env.perc(atk, rel, level: amp.clip(0,0.5)), doneAction:2);
-			sig=sig*env;
+			sig= sig*env;
 			paneo=Pan2.ar(sig,pan);
 			Out.ar(busArray, Limiter.ar(Compander.ar (paneo, mul: 1),1));
 		}).add;
@@ -74,7 +78,7 @@ SynthDef(\cafetera,
 			arg buf, freq=1, amp=0.5, pan=0, atk=0.01, rel=1;
 			var sig, paneo, env, sigMix;
 			sig= PlayBuf.ar(2, buf, BufRateScale.ir(buf) + freq, doneAction:2);
-			env= EnvGen.ar(Env.perc(atk, rel, amp.clip(0,0.5)), doneAction:2);
+			env= EnvGen.ar(Env.perc(atk, rel, level: amp.clip(0,0.5)), doneAction:2);
 			sig=sig*env;
 			paneo=Pan2.ar(sig,pan);
 			Out.ar(0, Limiter.ar(Compander.ar (paneo, mul: 1),1));
@@ -118,10 +122,12 @@ SynthDef(\cafetera,
 	env = EnvGen.ar(Env.perc(atk, rel), doneAction:2);
     audio = sin * env;
    audio = Pan2.ar (audio, pan);
-	audio = Compander.ar (audio, pan, 0.5, 0.5, 1, 0.25, 0.015);
+	audio = Compander.ar (audio, pan, 1, 0.5, 1, 0.25, 0.015, 1);
+	//	audio = Compander.ar (audio, pan,0.5, 0.5, 1, 0.25, 0.015, 1);
 	Out.ar (out, audio);
 }
 		).add;
+
 
 		SynthDef (\bajoE, {|amp = 1, freq = 40, atk = 0.5, rel = 1, pan = 0, fnoise=0.003|
 			var sin, env, out, randF;
