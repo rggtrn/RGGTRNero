@@ -35,17 +35,23 @@ RGGTRN {
 		busArray = [0,4];
 
 
-/// History
+		/// History
 
 
 
 		SynthDef(\reverb, {
-			arg mix = 0.25, room = 0.25, gate = 1;
 			var sin, env, out;
-			sin = FreeVerb.ar(In.ar(0, 2), mix, room, mul: 0.5);
-			env = EnvGen.ar(Env.asr,gate,doneAction:2);
+			sin = GVerb.ar(In.ar(0),roomsize:10, mul: 0.3, damping: 0.5, revtime: 1.25);
+			env = EnvGen.ar(Env.asr,1,doneAction:2);
 			Out.ar(0, sin*env);
-		}).add;
+		}).play;
+
+		SynthDef(\compresor, {
+			var sin, env, out;
+			sin = Compander.ar(In.ar(0), control: 1, thresh:0.7, clampTime:0.05);
+			env = EnvGen.ar(Env.asr,1,doneAction:2);
+			Out.ar(0, sin*env);
+		}).play;
 
 		SynthDef(\rev, {
 			arg mix = 0.5, room = 0.5, gate = 1;
@@ -56,13 +62,13 @@ RGGTRN {
 		}).add;
 
 
-SynthDef(\cafetera,
-	{ arg freq = 55, amp, lpf = 2000;
-		var audio = SinOsc.ar(freq.rand, mul:-25.dbamp*Saw.ar(freq*8.rand));
-		audio = LPF.ar (audio, freq:lpf.rand);
-		audio = audio * EnvGen.ar(Env.perc(2, 5), doneAction:2);
-		Out.ar(0,audio);
-}).add;
+		SynthDef(\cafetera,
+			{ arg freq = 55, amp = -25.dbamp, lpf = 2000, atk = 2, rel = 5;
+				var audio = SinOsc.ar(freq.rand, mul:amp*Saw.ar(freq*8.rand));
+				audio = LPF.ar (audio, freq:lpf.rand);
+				audio = audio * EnvGen.ar(Env.perc(atk, rel), doneAction:2);
+				Out.ar(0,audio);
+		}).add;
 
 		SynthDef (\samples, {
 			arg buf, freq=1, amp=0.5, pan=0, atk=0.01, rel=1, speed = buf;
@@ -105,7 +111,7 @@ SynthDef(\cafetera,
 		}).add;
 
 
-			SynthDef (\bajo, {|amp = 1, freq = 40, atk = 0.025, rel = 1, pan = 0, fnoise=0.003|
+		SynthDef (\bajo, {|amp = 1, freq = 40, atk = 0.025, rel = 1, pan = 0, fnoise=0.003|
 			var sin, env, out, randF;
 			randF = Rand(1-fnoise,1+fnoise);
 			sin = Pulse.ar(freq/2*randF, mul:amp.clip(0,0.5)) + SinOsc.ar (freq/2*randF, mul:amp.clip(0,0.5));
@@ -118,14 +124,14 @@ SynthDef(\cafetera,
 			var sin, env,  randF, audio;
 			randF = Rand(1-fnoise,1+fnoise);
 			sin = Saw.ar(freq/2*randF, mul:0.035) + LFTri.ar(freq/2*randF, mul:amp.clip(0,1)) + SinOsc.ar (freq/2*randF, mul:amp.clip(0,1)) + Impulse.ar(1, mul:1);
-	sin = LPF.ar (sin, 1000);
-	env = EnvGen.ar(Env.perc(atk, rel), doneAction:2);
-    audio = sin * env;
-   audio = Pan2.ar (audio, pan);
-	audio = Compander.ar (audio, pan, 1, 0.5, 1, 0.25, 0.015, 1);
-	//	audio = Compander.ar (audio, pan,0.5, 0.5, 1, 0.25, 0.015, 1);
-	Out.ar (out, audio);
-}
+			sin = LPF.ar (sin, 1000);
+			env = EnvGen.ar(Env.perc(atk, rel), doneAction:2);
+			audio = sin * env;
+			audio = Pan2.ar (audio, pan);
+			audio = Compander.ar (audio, pan, 1, 0.5, 1, 0.25, 0.015, 1);
+			//	audio = Compander.ar (audio, pan,0.5, 0.5, 1, 0.25, 0.015, 1);
+			Out.ar (busArray, audio);
+		}
 		).add;
 
 
@@ -148,15 +154,15 @@ SynthDef(\cafetera,
 			pan,1),0,0.8,0,1,0.1,0.1,1,0)))}).add;
 
 
-SynthDef(\tarola2,{| amp 1, pan 0, fnoise=0.003, out 0, freq 300|
+		SynthDef(\tarola2,{| amp 1, atk = 0.001, rel = 0.15, pan 0, fnoise=0.003, out 0, freq 300|
 			var audio;
-	audio = SinOsc.ar(freq*Rand(1-fnoise, 1 + fnoise), mul: 0.25);
-	audio = audio + WhiteNoise.ar(amp) + Impulse.ar (1, mul: 0.75);
-			audio = audio * Env.perc(0.001, 0.15, amp).kr(2);
-	     audio = LPF.ar (audio, 3500);
-	     audio = Pan2.ar (audio, pan);
+			audio = SinOsc.ar(freq*Rand(1-fnoise, 1 + fnoise), mul: 0.25);
+			audio = audio + WhiteNoise.ar(amp) + Impulse.ar (1, mul: 0.75);
+			audio = audio * Env.perc(atk, rel, amp).kr(2);
+			audio = LPF.ar (audio, 3500);
+			audio = Pan2.ar (audio, pan);
 			audio = Compander.ar (audio, pan, 0.5, 0.5, 1, 0.5, 0.1);
-			Out.ar (out, audio);
+			Out.ar (busArray, audio);
 		}).add;
 
 
@@ -166,13 +172,13 @@ SynthDef(\tarola2,{| amp 1, pan 0, fnoise=0.003, out 0, freq 300|
 
 
 
-SynthDef(\kick, { arg freq = 60, out = 0, amp = 0.1, pan = 0;
+		SynthDef(\kick, { arg freq = 60, out = 0, amp = 0.1, pan = 0;
 			var audio;
-	audio = SinOsc.ar(freq, mul: amp) + LFTri.ar(freq, mul: amp/24) + Impulse.ar (1, mul: 1)+ WhiteNoise.ar (mul: 0.00125);
+			audio = SinOsc.ar(freq, mul: amp) + LFTri.ar(freq, mul: amp/24) + Impulse.ar (1, mul: 1)+ WhiteNoise.ar (mul: 0.00125);
 			audio = audio * EnvGen.ar(Env.perc(0.0125, 0.35), doneAction: 2);
-				audio = Pan2.ar (audio, pan);
+			audio = Pan2.ar (audio, pan);
 			audio = Compander.ar (audio, pan, 0.5, 0.5, 1, 0.05, 0.1);
-			Out.ar (out, audio);
+			Out.ar (busArray, audio);
 		}).add;
 
 
@@ -219,7 +225,7 @@ SynthDef(\kick, { arg freq = 60, out = 0, amp = 0.1, pan = 0;
 			LFPulse.ar(20,0,0.5,Rand(0.03,0.045),mul: amp/8)
 			);
 			sig = HPF.ar(klank+WhiteNoise.ar(amp/2), Rand(2500,2000));
-		//	sig = (Compander.ar(sig));
+			//	sig = (Compander.ar(sig));
 			env = Env([0,1, 1, 0], [atk, dura,rel]).kr(2);
 			Out.ar(0,Pan2.ar (sig*env,pan));
 		}).add;
@@ -276,35 +282,35 @@ SynthDef(\kick, { arg freq = 60, out = 0, amp = 0.1, pan = 0;
 
 		SynthDef(\mel4, {|freq 200, amp 1, pan 0, atk 0.025, rel 0.125, fnoise=0.003|
 			var audio, env, freq2;
-				freq2 = Lag.ar(K2A.ar(freq), lagTime:0.25);
-	audio = LFTri.ar (freq:freq2, iphase: Line.ar(0,50,0.5), mul: amp/2)+Pulse.ar(freq: freq*Rand(1-fnoise,1+fnoise), width: Line.ar(0.25,0.5,0.125), mul: amp.clip(0,0.5));
-	audio = LPF.ar (audio, 10000);
+			freq2 = Lag.ar(K2A.ar(freq), lagTime:0.25);
+			audio = LFTri.ar (freq:freq2, iphase: Line.ar(0,50,0.5), mul: amp/2)+Pulse.ar(freq: freq*Rand(1-fnoise,1+fnoise), width: Line.ar(0.25,0.5,0.125), mul: amp.clip(0,0.5));
+			audio = LPF.ar (audio, 10000);
 			env = Env.perc(atk, rel).kr(2);
 			audio = audio * env;
-			Out.ar(0,Pan2.ar(audio, pan));
+			Out.ar(busArray,Pan2.ar(audio, pan));
 		}).add;
 
-SynthDef(\melGliss, {|freq 200, amp 1, pan 0, atk 0.125, rel 0.25, fnoise=0.003, gliss 100, dur  0|
+		SynthDef(\melGliss, {|freq 200, amp 1, pan 0, atk 0.125, rel 0.25, fnoise=0.003, gliss 100, dur  0|
 			var audio, env, glissando, frequency;
-	audio = Pulse.ar(freq:(XLine.kr(freq, gliss.midicps))*Rand(1-fnoise,1+fnoise), mul:amp.clip(0,0.5));
+			audio = Pulse.ar(freq:(XLine.kr(freq, gliss.midicps))*Rand(1-fnoise,1+fnoise), mul:amp.clip(0,0.5));
 			env = Env.perc(atk, rel).kr(2);
 			audio = audio * env;
 			audio = Compander.ar(audio);
-			Out.ar(0,Pan2.ar(audio, pan));
+			Out.ar(busArray,Pan2.ar(audio, pan));
 		}).add;
 
 		//use this with low frequencies
 
-SynthDef(\pluck,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=3, fnoise=0.003|
+		SynthDef(\pluck,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=3, fnoise=0.003|
 			var audio, env;
 			audio = Pluck.ar(BrownNoise.ar(amp.clip(0,0.5))+Pulse.ar(freq*Rand(1-fnoise,1+fnoise), mul:amp.clip(0,0.5)),
 				Impulse.kr(freqimp),maxdelaytime: freq.reciprocal, delaytime: freq.reciprocal, decaytime: 2,coef: 0.15);
-	audio = audio * Saw.ar(1);
-	audio = LPF.ar(audio, 12000);
+			audio = audio * Saw.ar(1);
+			audio = LPF.ar(audio, 12000);
 			env = EnvGen.ar(Env.perc(atk, rel), doneAction:2);
 			audio = audio * env;
-	      audio = Compander.ar(audio, control:0, thresh: 0.2, slopeBelow: 1, slopeAbove:1, clampTime:0.5,relaxTime:0.1);
-			Out.ar(0,Pan2.ar(audio, pan));
+			audio = Compander.ar(audio, control:0, thresh: 0.2, slopeBelow: 1, slopeAbove:1, clampTime:0.5,relaxTime:0.1);
+			Out.ar(busArray,Pan2.ar(audio, pan));
 		}).add;
 
 		//use this with low frequencies
@@ -333,7 +339,7 @@ SynthDef(\pluck,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=3, fnoise
 			Out.ar(0,Pan2.ar(audio, pan));
 		}).add;
 
-			SynthDef(\sharp, {|freq 440, amp 0.1, gate 1 atk 0.001, rel 0.005, pan = 0, fnoise=0.003|
+		SynthDef(\sharp, {|freq 440, amp 0.1, gate 1 atk 0.001, rel 0.005, pan = 0, fnoise=0.003|
 			var env, audio, freq2;
 			freq2 = Lag.ar(K2A.ar(freq), lagTime:0.5);
 			env = EnvGen.ar(Env.adsr(0.001, 0.005, -1.dbamp, 0.3), doneAction:2, gate:gate);
@@ -353,14 +359,14 @@ SynthDef(\pluck,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=3, fnoise
 
 		SynthDef(\sharp2, {|freq 440, amp 0.1, gate 1, atk 0.001, rel 0.005, pan = 0, fnoise=0.003, gliss 0, out 0, fil = 1500|
 			var env, audio, freq2;
-	freq2 = Lag.ar(K2A.ar(freq), lagTime:0.5);
+			freq2 = Lag.ar(K2A.ar(freq), lagTime:0.5);
 			env = EnvGen.ar(Env.adsr(0.05, 0.005, -1.dbamp, 0.3), doneAction:2, gate:gate);
-	audio = Pulse.ar (freq:(XLine.kr(freq, freq+gliss, 1))*Rand(1-fnoise,1+fnoise), mul:amp.clip(0,0.5))+LFTri.ar(freq:(XLine.kr(freq, freq+gliss, 1))*2*Rand(1-fnoise,1+fnoise), mul:amp.clip(0,0.5));
-	audio = LPF.ar (audio,fil);
-	audio = audio * env;
-		  audio = Pan2.ar (audio, pan);
-	audio = Compander.ar (audio, pan, 0.5, 0.5, 1, 0.5, 0.015, mul: 0.75);
-	Out.ar (out, audio);
+			audio = Pulse.ar (freq:(XLine.kr(freq, freq+gliss, 1))*Rand(1-fnoise,1+fnoise), mul:amp.clip(0,0.5))+LFTri.ar(freq:(XLine.kr(freq, freq+gliss, 1))*2*Rand(1-fnoise,1+fnoise), mul:amp.clip(0,0.5));
+			audio = LPF.ar (audio,fil);
+			audio = audio * env;
+			audio = Pan2.ar (audio, pan);
+			audio = Compander.ar (audio, pan, 0.5, 0.5, 1, 0.5, 0.015, mul: 0.75);
+			Out.ar (busArray, audio);
 		}).add;
 
 
@@ -375,7 +381,7 @@ SynthDef(\pluck,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=3, fnoise
 		SynthDef(\padE, {|freq 80, amp = 0.5, pan 0, atk 0.25, rel 0.05, fnoise=0.003|
 			var audio, env;
 			audio = LFTri.ar(freq*Rand(1-fnoise,1+fnoise), 0, mul:amp.clip(0,0.5));
-			env = Env.perc(atk, rel).kr(2);
+			env = EnvGen.ar(Env.perc(atk, rel), doneAction:2);
 			audio = audio * env;
 			Out.ar(0,Pan2.ar(audio,pan));
 		}).add;
@@ -383,7 +389,7 @@ SynthDef(\pluck,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=3, fnoise
 		SynthDef(\pad2, {|freq 100, amp = 0.5, pan 0, atk 0.25, rel 0.05, fnoise=0.003|
 			var audio, env;
 			audio = Saw.ar(freq: freq*Rand(1-fnoise,1+fnoise), mul:amp.clip(0,0.5));
-			env = Env.perc(atk, rel).kr(2);
+			env = EnvGen.ar(Env.perc(atk, rel), doneAction:2);
 			audio = audio * env;
 			Out.ar(busArray,Pan2.ar(audio,pan));
 		}).add;
@@ -391,7 +397,7 @@ SynthDef(\pluck,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=3, fnoise
 		SynthDef(\pad2E, {|freq 100, amp = 0.5, pan 0, atk 0.25, rel 0.05, fnoise=0.003|
 			var audio, env;
 			audio = Saw.ar(freq: freq*Rand(1-fnoise,1+fnoise), mul:amp.clip(0,0.5));
-			env = Env.perc(atk, rel).kr(2);
+			env = EnvGen.ar(Env.perc(atk, rel), doneAction:2);
 			audio = audio * env;
 			Out.ar(0,Pan2.ar(audio,pan));
 		}).add;
@@ -399,18 +405,27 @@ SynthDef(\pluck,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=3, fnoise
 		SynthDef(\pad3, {|freq=100, amp=0.5,  pan 0, atk 0.25, rel 0.05, fnoise=0.003|
 			var audio, env;
 			audio = SinOsc.ar(freq*Rand(1-fnoise,1+fnoise),mul:amp.clip(0, 0.5));
-			env = Env.perc(atk, rel).kr(2);
+			env = EnvGen.ar(Env.perc(atk, rel), doneAction:2);
 			Out.ar(busArray,Pan2.ar(audio,pan));
 		}).add;
 
 		SynthDef(\pad3E, {|freq=100, amp=0.5,  pan 0, atk 0.25, rel 0.05, fnoise=0.003|
 			var audio, env;
 			audio = SinOsc.ar(freq*Rand(1-fnoise,1+fnoise),mul:amp.clip(0, 0.5));
-			env = Env.perc(atk, rel).kr(2);
+			env = EnvGen.ar(Env.perc(atk, rel), doneAction:2);
 			Out.ar(0,Pan2.ar(audio,pan));
 		}).add;
 
-
+		SynthDef(\pad4, {|freq 100, amp = 0.5, pan 0, atk 0.25, rel 0.05, fnoise=0.003|
+			var audio, env;
+			audio = Saw.ar(freq: freq*Rand(1-fnoise,1+fnoise)+Line.kr (1, 10, 1), mul:amp.clip(0,0.5));
+			audio = Pulse.ar (freq: freq*Rand(1-fnoise,1+fnoise)*2+Line.kr (1, 10, 1), width: Line.kr(0,1, 0.5), mul:amp.clip(0,0.5)) + audio;
+			audio = LFTri.ar(freq: freq*Rand(1-fnoise,1+fnoise)/2+Line.kr (1, 10, 1), mul:amp.clip(0,0.25)) + audio;
+			audio = LPF.ar (audio, 2000);
+			env = Env.perc(atk, rel).kr(2);
+			audio = audio * env;
+			Out.ar(0,Pan2.ar(audio,pan));
+		}).add;
 		////METALES
 
 		//este synth sube una 2a mayor las melodias, hay que restarle 2 a las midinotes
@@ -507,7 +522,6 @@ SynthDef(\pluck,{|freq 2, amp 0.25, pan 0, atk 0.025, rel 0.25 freqimp=3, fnoise
 						BufFrames.kr(~csf)* pos, 1)).flat * 0.4, freq);
 			Out.ar(0, synth * amp)
 		}).add;
-
 
 	}
 }
