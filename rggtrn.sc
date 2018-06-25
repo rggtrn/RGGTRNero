@@ -7,8 +7,21 @@ RGGTRN {
 
 	*turboCargar {
 		super.initClass;
-		version = "Mayo 4 2017";
-		("RGGTRN TURBO CARGADO : version 1.0").postln;
+		version = "Jun 20 2018";
+		("
+
+ ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄
+▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░▌      ▐░▌
+▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀▀▀  ▀▀▀▀█░█▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌▐░▌░▌     ▐░▌
+▐░▌       ▐░▌▐░▌          ▐░▌               ▐░▌     ▐░▌       ▐░▌▐░▌▐░▌    ▐░▌
+▐░█▄▄▄▄▄▄▄█░▌▐░▌ ▄▄▄▄▄▄▄▄ ▐░▌ ▄▄▄▄▄▄▄▄      ▐░▌     ▐░█▄▄▄▄▄▄▄█░▌▐░▌ ▐░▌   ▐░▌
+▐░░░░░░░░░░░▌▐░▌▐░░░░░░░░▌▐░▌▐░░░░░░░░▌     ▐░▌     ▐░░░░░░░░░░░▌▐░▌  ▐░▌  ▐░▌
+▐░█▀▀▀▀█░█▀▀ ▐░▌ ▀▀▀▀▀▀█░▌▐░▌ ▀▀▀▀▀▀█░▌     ▐░▌     ▐░█▀▀▀▀█░█▀▀ ▐░▌   ▐░▌ ▐░▌
+▐░▌     ▐░▌  ▐░▌       ▐░▌▐░▌       ▐░▌     ▐░▌     ▐░▌     ▐░▌  ▐░▌    ▐░▌▐░▌
+▐░▌      ▐░▌ ▐░█▄▄▄▄▄▄▄█░▌▐░█▄▄▄▄▄▄▄█░▌     ▐░▌     ▐░▌      ▐░▌ ▐░▌     ▐░▐░▌
+▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌     ▐░▌     ▐░▌       ▐░▌▐░▌      ▐░░▌
+ ▀         ▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀       ▀       ▀         ▀  ▀        ▀▀  turbocargado").postln;
+
 		~luislacolegiala=Buffer.read(s, "~/RGGTRNero/samples/patioCSF.wav".standardizePath);
 		~csf=Buffer.read(s, "~/RGGTRNero/samples/patioCSF.wav".standardizePath);
 		~dembow=Buffer.read(s, "~/RGGTRNero/samples/dembow.wav".standardizePath);
@@ -463,10 +476,6 @@ RGGTRN {
 			Out.ar(out,sig2*env);
 		}).add;
 
-		~rev=Synth(\reverb, addAction: \addToTail);
-		~rev=Synth(\rev, addAction: \addToTail);
-
-
 		SynthDef (\wow, {
 			arg atk = 2, sus = 0, rel = 3, c1 =1, c2 = (-1),
 			freq= 500, detune= 0.2, pan = 0, cfhzmin=0.1, cfhzmax = 0.3, cfmin=500, cfmax=2000, rqmin= 0.1, rqmax=0.2, lsf=200, ldb=0, amp=1,
@@ -525,4 +534,3 @@ RGGTRN {
 
 	}
 }
-

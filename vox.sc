@@ -18,7 +18,7 @@ classvar <v;
 
 Pbindef(\vox,
 	\instrument, \samples,
-	\db, -10,
+	\db, db,
 	\buf, buffer,
 	\freq, rate,
 	\dur, dur,
