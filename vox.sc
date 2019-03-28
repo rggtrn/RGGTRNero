@@ -17,7 +17,7 @@ classvar <v;
 	*decir {arg buffer = RGGTRN.internacional, db = -10, atk = 0.001, rel =Pseq([4],1), rate = 0, dur = Pseq([4],1), pan = 0;
 
 Pbindef(\vox,
-	\instrument, \samples,
+	\instrument, \samplesStereo,
 	\db, db,
 	\buf, buffer,
 	\freq, rate,

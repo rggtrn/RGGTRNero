@@ -8,10 +8,12 @@ classvar <a;
 classvar <x;
 classvar <v;
 
+
 	*initClass {
 	 super.initClass;
 	    version = "Mayo 4 2017";
 		("Bajo : version 1.0").postln;
+
 	}
 
 	*toca {arg inst = \bajo, db = -25, atk = 0.025, rel = Pseq (#[1, 0.5, 0.5], inf), nota = Pseq((#[62, 65, 69]),inf), dur = Pseq(#[1, 0.5, 0.5], inf), pan = 0;

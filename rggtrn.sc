@@ -7,6 +7,9 @@ RGGTRN {
 
 	*turboCargar {
 		super.initClass;
+		Ritmo.initClass;
+		Bajo.initClass;
+		Teclado.initClass;
 		version = "Jun 20 2018";
 		("
 
@@ -83,10 +86,20 @@ RGGTRN {
 				Out.ar(0,audio);
 		}).add;
 
-		SynthDef (\samples, {
+		SynthDef (\samplesStereo, {
 			arg buf, freq=1, amp=0.5, pan=0, atk=0.01, rel=1, speed = buf;
 			var sig, paneo, env, sigMix;
 			sig= Mix.ar(PlayBuf.ar(2, buf, BufRateScale.ir(speed) + freq, doneAction:2));
+			env= EnvGen.ar(Env.perc(atk, rel, level: amp.clip(0,0.5)), doneAction:2);
+			sig= sig*env;
+			paneo=Pan2.ar(sig,pan);
+			Out.ar(busArray, Limiter.ar(Compander.ar (paneo, mul: 1),1));
+		}).add;
+
+		SynthDef (\samplesMono, {
+			arg buf, freq=1, amp=0.5, pan=0, atk=0.01, rel=1, speed = buf;
+			var sig, paneo, env, sigMix;
+			sig= Mix.ar(PlayBuf.ar(1, buf, BufRateScale.ir(speed) + freq, doneAction:2));
 			env= EnvGen.ar(Env.perc(atk, rel, level: amp.clip(0,0.5)), doneAction:2);
 			sig= sig*env;
 			paneo=Pan2.ar(sig,pan);
