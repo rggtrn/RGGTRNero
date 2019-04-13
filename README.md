@@ -7,4 +7,5 @@ Una librería para hacer live coding en corto tiempo.
 2. Colocar la carpeta RGGTRNero en la carpeta Extensions de SuperCollider.
 3. Recompilar y prender (s.boot) SuperCollider.
 5. ¡Utiliza el archivo "ejemploBasico.scd" para hacer una prueba incial!
+6. Encuentra mas ejemplos aqui: https://github.com/rggtrn/rolas.git
 
