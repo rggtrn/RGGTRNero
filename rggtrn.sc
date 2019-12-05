@@ -25,51 +25,52 @@ RGGTRN {
 ▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌     ▐░▌     ▐░▌       ▐░▌▐░▌      ▐░░▌
  ▀         ▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀       ▀       ▀         ▀  ▀        ▀▀  turbocargado").postln;
 
-		~luislacolegiala=Buffer.read(s, "~/RGGTRNero/samples/patioCSF.wav".standardizePath);
-		~csf=Buffer.read(s, "~/RGGTRNero/samples/patioCSF.wav".standardizePath);
-		~dembow=Buffer.read(s, "~/RGGTRNero/samples/dembow.wav".standardizePath);
-		romantic=Buffer.read(s, "~/RGGTRNero/samples/romantic.wav".standardizePath);
-		rggtrn2=Buffer.read(s, "~/RGGTRNero/samples/rggtrn2.wav".standardizePath);
-		digital=Buffer.read(s, "~/RGGTRNero/samples/digital.wav".standardizePath);
-		sonidero=Buffer.read(s, "~/RGGTRNero/samples/sonidero.wav".standardizePath);
-		internacional=Buffer.read(s, "~/RGGTRNero/samples/internacional.wav".standardizePath);
-		rggtrn=Buffer.read(s, "~/RGGTRNero/samples/rggtrn.wav".standardizePath);
-		si=Buffer.read(s, "~/RGGTRNero/samples/si.wav".standardizePath);
-		bombo=Buffer.read(s, "~/RGGTRNero/samples/bombo.wav".standardizePath);
-		bajo=Buffer.read(s, "~/RGGTRNero/samples/bajo.wav".standardizePath);
-		timbal=Buffer.read(s, "~/RGGTRNero/samples/timbal.wav".standardizePath);
-		tom1=Buffer.read(s, "~/RGGTRNero/samples/tom1.wav".standardizePath);
-		principio=Buffer.read(s, "~/RGGTRNero/samples/principio_2.wav".standardizePath);
-		bote=Buffer.read(s, "~/RGGTRNero/samples/bote.wav".standardizePath);
-		sabro=Buffer.read(s, "~/RGGTRNero/samples/sabro.wav".standardizePath);
-		fuerte=Buffer.read(s, "~/RGGTRNero/samples/fuerte.wav".standardizePath);
-		intro=Buffer.read(s, "~/RGGTRNero/samples/intro_soni.wav".standardizePath);
-		congaC=Buffer.read(s, "~/RGGTRNero/samples/congaC.wav".standardizePath);
-		congaS=Buffer.read(s, "~/RGGTRNero/samples/congaS.wav".standardizePath);
-		bongoP=Buffer.read(s, "~/RGGTRNero/samples/bongo2.aiff".standardizePath);
-		bongoC=Buffer.read(s, "~/RGGTRNero/samples/bongoC.wav".standardizePath);
+		~luislacolegiala=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/patioCSF.wav".standardizePath);
+		~csf=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/patioCSF.wav".standardizePath);
+		~dembow=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/dembow.wav".standardizePath);
+		romantic=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples//romantic.wav".standardizePath);
+		rggtrn2=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/rggtrn2.wav".standardizePath);
+		digital=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/digital.wav".standardizePath);
+		sonidero=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/sonidero.wav".standardizePath);
+		internacional=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/internacional.wav".standardizePath);
+		rggtrn=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/rggtrn.wav".standardizePath);
+		si=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/si.wav".standardizePath);
+		bombo=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/bombo.wav".standardizePath);
+		bajo=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/bajo.wav".standardizePath);
+		timbal=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/timbal.wav".standardizePath);
+		tom1=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/tom1.wav".standardizePath);
+		principio=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/principio_2.wav".standardizePath);
+		bote=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/bote.wav".standardizePath);
+		sabro=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/sabro.wav".standardizePath);
+		fuerte=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/fuerte.wav".standardizePath);
+		intro=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/intro_soni.wav".standardizePath);
+		congaC=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/congaC.wav".standardizePath);
+		congaS=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/congaS.wav".standardizePath);
+		bongoP=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/bongo2.aiff".standardizePath);
+		bongoC=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/bongoC.wav".standardizePath);
 		busArray = [0,4];
 
+		// rggtrn oficial masterización
+	~rggtrnMaster = SynthDef (\mix, {
+			var outD = GVerb.ar(BPF.ar(In.ar(0), Array.geom(8, 50, 1.5), 1/4).sum, 80, 5.85, 0.41, 0.19, 15, -3.dbamp, -5.dbamp, -5.dbamp, 80, 1)*0.15;
+			var outS = DelayC.ar(In.ar(0), 0.01, 0.0001*0.5);
+			var envOutS = EnvFollow.ar(In.ar(0), 1 - (0.0001 * SampleRate.ir).reciprocal).max(0.134377).reciprocal * 0.2!2;
+			outS = outS * envOutS;
 
-		/// History
+	      Out.ar(0, outS);
 
+		}).play;
 
+		//deprecated?
 
-		SynthDef(\reverb, {
+		/*~reverb1 = SynthDef(\reverb, {
 			var sin, env, out;
 			sin = GVerb.ar(In.ar(0),roomsize:10, mul: 0.3, damping: 0.5, revtime: 1.25);
 			env = EnvGen.ar(Env.asr,1,doneAction:2);
 			Out.ar(0, sin*env);
 		}).play;
 
-		SynthDef(\compresor, {
-			var sin, env, out;
-			sin = Compander.ar(In.ar(0), control: 1, thresh:0.7, clampTime:0.05);
-			env = EnvGen.ar(Env.asr,1,doneAction:2);
-			Out.ar(0, sin*env);
-		}).play;
-
-		SynthDef(\rev, {
+	~reverb2 = SynthDef(\rev, {
 			arg mix = 0.5, room = 0.5, gate = 1;
 			var sin, env, out;
 			sin = FreeVerb.ar(In.ar(36, 2), mix, room,  mul: 0.25);
@@ -77,6 +78,15 @@ RGGTRN {
 			Out.ar(0, sin*env);
 		}).add;
 
+
+	~compresor = SynthDef(\compresor, {
+			var sin, env, out;
+			sin = Compander.ar(In.ar(0), control: 1, thresh:0.7, clampTime:0.05);
+			env = EnvGen.ar(Env.asr,1,doneAction:2);
+			Out.ar(0, sin*env);
+		}).play;
+
+*/
 
 		SynthDef(\cafetera,
 			{ arg freq = 55, amp = -25.dbamp, lpf = 2000, atk = 2, rel = 5;
@@ -116,6 +126,7 @@ RGGTRN {
 			Out.ar(0, Limiter.ar(Compander.ar (paneo, mul: 1),1));
 		}).add;
 
+
 		SynthDef (\timbal, {
 			arg buf = ~timbal, freq=1, amp=1, pan=0, atk=0.01, rel=1;
 			var sig, paneo, env;
@@ -123,7 +134,7 @@ RGGTRN {
 			env= EnvGen.ar(Env.perc(atk, rel), doneAction:2);
 			sig=sig*env;
 			paneo=Pan2.ar(sig,pan);
-			Out.ar(busArray,Limiter.ar (Compander.ar (paneo, mul: amp.clip(0,0.75)),1));
+			Out.ar([0,4],Limiter.ar (Compander.ar (paneo, mul: amp.clip(0,0.85), relaxTime: 0.5, mul: amp),amp, 0.01));
 		}).add;
 
 		SynthDef (\timbalE, {
@@ -149,14 +160,14 @@ RGGTRN {
 		SynthDef (\bajo2, {|amp = 0.5, freq = 40, atk = 0.025,rel = 1, pan = 0, fnoise=0.003, out = 0|
 			var sin, env,  randF, audio;
 			randF = Rand(1-fnoise,1+fnoise);
-			sin = Saw.ar(freq/2*randF, mul:0.035) + LFTri.ar(freq/2*randF, mul:amp.clip(0,1)) + SinOsc.ar (freq/2*randF, mul:amp.clip(0,1)) + Impulse.ar(1, mul:1);
-			sin = LPF.ar (sin, 1000);
+			sin = Saw.ar(freq/2*randF, mul:0.035) + LFTri.ar(freq/2*randF, mul:amp.clip(0,1)) + SinOsc.ar (freq/2*randF, mul:amp.clip(0,1)) + SinOsc.ar (freq*randF, mul:amp.clip(0,1)) + SinOsc.ar (freq*randF, mul:amp.clip(0,1)) + Impulse.ar(1, mul:1);
+			sin = LPF.ar (sin, 2000);
 			env = EnvGen.ar(Env.perc(atk, rel), doneAction:2);
 			audio = sin * env;
 			audio = Pan2.ar (audio, pan);
-			audio = Compander.ar (audio, pan, 1, 0.5, 1, 0.25, 0.015, 1);
+			audio = Compander.ar (audio, pan, 1, 0.5, 1, 0.5, 0.015, 1);
 			//	audio = Compander.ar (audio, pan,0.5, 0.5, 1, 0.25, 0.015, 1);
-			Out.ar (busArray, audio);
+			Out.ar (0, audio);
 		}
 		).add;
 
@@ -191,13 +202,6 @@ RGGTRN {
 			Out.ar (busArray, audio);
 		}).add;
 
-
-
-		SynthDef(\tarolaE,{|freq, amp 1, pan 0, fnoise=0.003| Out.ar (0, (Compander.ar (Pan2.ar((SinOsc.ar(300*Rand(1-fnoise,1+fnoise))+ WhiteNoise.ar)*Env.perc(0.01,0.25,amp).kr(2),pan,1)
-			,0,0.8,0,1,0.1,0.1,1,0)))}).add;
-
-
-
 		SynthDef(\kick, { arg freq = 60, out = 0, amp = 0.1, pan = 0;
 			var audio;
 			audio = SinOsc.ar(freq, mul: amp) + LFTri.ar(freq, mul: amp/24) + Impulse.ar (1, mul: 1)+ WhiteNoise.ar (mul: 0.00125);
@@ -206,6 +210,15 @@ RGGTRN {
 			audio = Compander.ar (audio, pan, 0.5, 0.5, 1, 0.05, 0.1);
 			Out.ar (busArray, audio);
 		}).add;
+
+
+
+		SynthDef(\tarolaE,{|freq, amp 1, pan 0, fnoise=0.003| Out.ar (0, (Compander.ar (Pan2.ar((SinOsc.ar(300*Rand(1-fnoise,1+fnoise))+ WhiteNoise.ar)*Env.perc(0.01,0.25,amp).kr(2),pan,1)
+			,0,0.8,0,1,0.1,0.1,1,0)))}).add;
+
+
+
+
 
 
 
@@ -452,6 +465,19 @@ RGGTRN {
 			audio = audio * env;
 			Out.ar(0,Pan2.ar(audio,pan));
 		}).add;
+
+
+		SynthDef(\padG, {|freq 100, amp = 0.5, pan 0, atk 0.25, rel 0.05, fnoise=0.003, gliss = 0|
+			var audio, env;
+			audio = Saw.ar(freq: (XLine.kr(freq, gliss.midicps, 1))*Rand(1-fnoise,1+fnoise)+Line.kr (1, 10, 1), mul:amp.clip(0,0.5));
+			audio = Pulse.ar (freq: freq*Rand(1-fnoise,1+fnoise)*2+Line.kr (1, 10, 1), width: Line.kr(0,1, 0.5), mul:amp.clip(0,0.5)) + audio;
+			audio = LFTri.ar(freq: freq*Rand(1-fnoise,1+fnoise)/2+Line.kr (1, 10, 1), mul:amp.clip(0,0.25)) + audio;
+			audio = LPF.ar (audio, 2000);
+			env = Env.perc(atk, rel).kr(2);
+			audio = audio * env;
+			Out.ar(0,Pan2.ar(audio,pan));
+		}).add;
+
 		////METALES
 
 		//este synth sube una 2a mayor las melodias, hay que restarle 2 a las midinotes
@@ -508,6 +534,128 @@ RGGTRN {
 			sig = sig * env * (amp * MouseX.kr(0, 2));
 			Out.ar (out, sig);
 		}).add;
+
+		// by  nicolaariutti, taken from https://sccode.org/1-5ay (2019)
+SynthDef(\bell, {
+	|fs=1, t60=1, pitchy=1, amp=0.25, gate=1|
+	var sig, exciter;
+	//exciter = Impulse.ar(0);
+	exciter = WhiteNoise.ar() * EnvGen.ar(Env.perc(0.001, 0.05), gate) * 0.25;
+	sig = Klank.ar(
+		`[
+			[1, 2, 2.803, 3.871, 5.074, 7.81, 10.948, 14.421],   // freqs
+			[1, 0.044, 0.891, 0.0891, 0.794, 0.1, 0.281, 0.079], // amplitudes
+			[1, 0.205, 1, 0.196, 0.339, 0.047, 0.058, 0.047]*t60     // ring times
+		],
+		exciter,
+		freqscale:fs*pitchy);
+	sig = FreeVerb.ar(sig) * amp;
+	DetectSilence.ar(sig, 0.001, 0.5, doneAction:2);
+	Out.ar(0, sig!2);
+}).add;
+
+				// by  nicolaariutti, taken from https://sccode.org/1-5ay (2019)
+
+SynthDef(\violin, {
+	| midinote=60, gate=1, amp=0.25, atk=0.1, sus=1, rel=0.1 |
+	var env = EnvGen.kr(Env.asr(atk, sus, rel), gate, doneAction:2);
+	var sig = VarSaw.ar(
+		midinote.midicps,
+		width:LFNoise2.kr(1).range(0.2, 0.8)*SinOsc.kr(5, Rand(0.0, 1.0)).range(0.7,0.8))*0.25;
+	sig = sig * env * amp;
+	Out.ar(0, sig!2);
+}).add;
+
+// Originally found at http://ecmc.rochester.edu/ecmc/docs/supercollider/scbook/Ch21_Interface_Investigations/ixi%20SC%20tutorial/ixi_SC_tutorial_10.html and https://github.com/brunoruviaro/SynthDefs-for-Patterns
+
+SynthDef("flute", { arg scl = 0.125, freq = 440, ipress = 0.85, ibreath = 0.05, ifeedbk1 = 0.4, ifeedbk2 = 0.4,  rel = 0.5, gate = 1, amp = 0.5, pan = 0;
+
+	var kenv1, kenv2, kenvibr, kvibr, sr, cr, block;
+	var poly, signalOut, ifqc;
+	var aflow1, asum1, asum2, afqc, atemp1, ax, apoly, asum3, avalue, atemp2, aflute1;
+	var fdbckArray;
+
+	sr = SampleRate.ir;
+	cr = ControlRate.ir;
+	block = cr.reciprocal;
+
+	ifqc = freq;
+
+	// noise envelope
+	kenv1 = EnvGen.kr(Env.new(
+		[ 0.0, 1.1 * ipress, ipress, ipress, 0.0 ], [ 0.06, 0.2, 0.46, 0.2 ], 'linear' )
+	);
+	// overall envelope
+	kenv2 = EnvGen.kr(Env.new(
+		[ 0.0, amp, amp, 0.0 ], [ 0.1, rel - 0.02, 0.1 ], 'linear' ), doneAction: 2
+	);
+	// vibrato envelope
+	kenvibr = EnvGen.kr(Env.new( [ 0.0, 0.0, 1, 1, 0.0 ], [ 0.5, 0.5, rel - 1.5, 0.5 ], 'linear') );
+
+	// create air flow and vibrato
+	aflow1 = LFClipNoise.ar( sr, kenv1 );
+	kvibr = SinOsc.ar( 5, 0, 0.1 * kenvibr );
+
+	asum1 = ( ibreath * aflow1 ) + kenv1 + kvibr;
+	afqc = ifqc.reciprocal - ( asum1/20000 ) - ( 9/sr ) + ( ifqc/12000000 ) - block;
+
+	fdbckArray = LocalIn.ar( 1 );
+
+	aflute1 = fdbckArray;
+	asum2 = asum1 + ( aflute1 * ifeedbk1 );
+
+	//ax = DelayL.ar( asum2, ifqc.reciprocal * 0.5, afqc * 0.5 );
+	ax = DelayC.ar( asum2, ifqc.reciprocal - block * 0.5, afqc * 0.5 - ( asum1/ifqc/cr ) + 0.001 );
+
+	apoly = ax - ( ax.cubed );
+	asum3 = apoly + ( aflute1 * ifeedbk2 );
+	avalue = LPF.ar( asum3, 2000 );
+
+			aflute1 = DelayC.ar( avalue, ifqc.reciprocal - block, afqc );
+
+
+	fdbckArray = [ aflute1 ];
+
+	LocalOut.ar( fdbckArray );
+
+	signalOut = avalue;
+
+			OffsetOut.ar( 0, Pan2.ar([ signalOut * kenv2, signalOut * kenv2 ],pan ));
+
+}).add;
+
+
+		// from https://github.com/brunoruviaro/SynthDefs-for-Patterns/blob/master/all.scd, original name "plucking"
+
+SynthDef("pluck2", {arg amp = 0.1, freq = 440, decay = 5, coef = 0.1, pan = 0, atk = 0, rel = 1;
+var env, snd;
+env = EnvGen.kr(Env.linen(atk, rel*2, rel), doneAction: 2);
+snd = Pluck.ar(
+        in: WhiteNoise.ar(amp),
+        trig: Impulse.kr(0),
+
+        maxdelaytime: 0.1,
+        delaytime: freq.reciprocal,
+        decaytime: decay,
+        coef: coef);
+			Out.ar(0, Pan2.ar ([snd, snd], pan));
+}).add;
+
+
+// taken from http://www.mcld.co.uk/cymbalsynthesis/
+SynthDef (\crash, {arg freq, fil = 10000, out = 0, amp = 1, atk  = 0.5, rel = 1;
+	var lodriver, locutoffenv, hidriver, hicutoffenv, freqs, res, thwack;
+	locutoffenv = EnvGen.ar(Env.perc(atk, rel), doneAction: 2) * fil + 10;
+	lodriver = LPF.ar(WhiteNoise.ar(0.1), locutoffenv);
+	hicutoffenv = 10001 - (EnvGen.ar(Env.perc(atk, rel), doneAction: 2) * fil);
+	hidriver = HPF.ar(WhiteNoise.ar(0.1), hicutoffenv);
+	hidriver = hidriver * EnvGen.ar(Env.perc(atk*2, rel*2, amp/2), doneAction: 2);
+	thwack = EnvGen.ar(Env.perc(0.001,0.001,1));
+	freqs  = {exprand(300, 20000)}.dup(100);
+	res    = Ringz.ar(lodriver + hidriver + thwack, freqs).mean;
+	res = ((res * 1) + (lodriver * 2) + thwack).dup;
+	Out.ar (0, Pan2.ar(res, 0, amp));
+}).add;
 
 		//________________________________________________________________________________________________________
 

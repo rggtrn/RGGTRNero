@@ -14,7 +14,7 @@ classvar <v;
 		("vox : version 1.0").postln;
 	}
 
-	*decir {arg buffer = RGGTRN.internacional, db = -10, atk = 0.001, rel =Pseq([4],1), rate = 0, dur = Pseq([4],1), pan = 0;
+	*decir {arg buffer = RGGTRN.internacional, db = -10, atk = 0.001, rel =Pseq([4],inf), rate = 0, dur = Pseq([4],1), pan = 0;
 
 Pbindef(\vox,
 	\instrument, \samplesStereo,
@@ -23,7 +23,7 @@ Pbindef(\vox,
 	\freq, rate,
 	\dur, dur,
 	\rel, rel,
-	\pan, pan,
+	\pan, pan
 ).play;
 Pbindef(\vox).quant = 0;
 
