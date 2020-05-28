@@ -23,7 +23,7 @@ Teclado {
 			\db, db,
 			\pan, pan,
 			\midinote, nota+12,
-			\dur, dur,
+			\dur, dur
 		).play(quant:4);
 		Pbindef(\pad).quant = 4;
 	}

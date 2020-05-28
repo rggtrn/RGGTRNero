@@ -3,7 +3,7 @@
 RGGTRN {
 
 	classvar <version;
-	classvar <s; classvar <csf; classvar <dembow; classvar <romantic; classvar <rggtrn2; classvar <digital; classvar <sonidero; classvar <internacional; classvar <rggtrn; classvar <si; classvar <bombo; classvar <bajo; classvar <timbal; classvar <tom1; classvar <principio; classvar <bote; classvar <sabro; classvar <fuerte; classvar <intro; classvar < busArray; classvar < congaS; classvar < congaC; classvar < bongoP; classvar < bongoC;
+	classvar <s; classvar <csf; classvar <dembow; classvar <romantic; classvar <rggtrn2; classvar <digital; classvar <sonidero; classvar <internacional; classvar <rggtrn; classvar <si; classvar <bombo; classvar <bajo; classvar <timbal; classvar <tom1; classvar <principio; classvar <bote; classvar <sabro; classvar <fuerte; classvar <intro; classvar < busArray; classvar < congaS; classvar < congaC; classvar < bongoP; classvar < bongoC; classvar < perron2020; classvar < evolucion2020; classvar < guau2020; classvar < principio2020; classvar < encanta2020;
 
 	*turboCargar {
 		super.initClass;
@@ -48,6 +48,11 @@ RGGTRN {
 		congaS=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/congaS.wav".standardizePath);
 		bongoP=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/bongo2.aiff".standardizePath);
 		bongoC=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/bongoC.wav".standardizePath);
+		principio2020=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/principio2020.wav".standardizePath);
+		encanta2020=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/encanta2020.wav".standardizePath);
+        evolucion2020=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/evolucion2020.wav".standardizePath);
+		guau2020=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/ladrido2020.wav".standardizePath);
+		perron2020=Buffer.read(s, ".local/share/SuperCollider/Extensions/RGGTRNero/samples/perron2020.wav".standardizePath);
 		busArray = [0,4];
 
 		// rggtrn oficial masterización

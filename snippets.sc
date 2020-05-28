@@ -161,6 +161,11 @@ Mel2.toca(inst: Pseq (['pluck2'], inf), pan: -1, nota: Pstutter (Prand([1], inf)
 Ritmo.toca(campanaDb:-150, campanaDur: Prand ([1], inf), guiraDb: -23*~vol, timbalesAmp: 1*~vol, timbalesPan: Prand ([-0.8, 0.8], inf),timbalesFreq: Prand (#[0, 1, -1], inf), timbalesDur: Pseq ([0.25, 0.5], inf), timbalesNum: inf, congaCDb: Pxrand ([-14, -17, -15, -20 ]*2*~vol, inf),  congaODb: Prand ([-20,-25, -20, -30]*~vol, inf), congaOfreq: Pseq (#[0.5, r, 0, r, 1], inf), crashFreq: \\r);
 )";
 
+///////////////////// new stuff/////////////////
+
+	classvar <> ritmo = "Ritmo.toca(campanaDb:-200, campanaDur: 1, guiraDb: -24, timbalesDur: Pseq ([0.5], inf), timbalesNum: 0, congaCDb: Pseq ([-14, -17, -15, -20 ], inf) ,congaODb: -22);";
+
+
 
 	// classvar <intro =
 
